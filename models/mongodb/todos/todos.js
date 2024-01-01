@@ -89,5 +89,25 @@ export class TodoModel {
         response: null,
       }
     }
+  }
+  
+  static async deleteAllCompleted() {
+    try {
+      const allCompletedTodos = await MongoTodoModel.deleteMany({ completed: true })
+      console.log(allCompletedTodos)
+      
+      return {
+        ok: IS_SUCCESSFUL,
+        message: TODOS_SUCCESS_MESSAGES.SUCCESS_DELETE_ALL_COMPLETED,
+        response: allCompletedTodos
+      }
+    } catch (err) {
+      console.log(err)
+      return {
+        ok: IS_NOT_SUCCESSFUL,
+        message: TODOS_ERRORS.ERR_DELETE_ALL_COMPLETED,
+        response: null
+      }
+    }
    }
 }

@@ -1,3 +1,4 @@
+import { TODOS_ERRORS } from "../../consts/todos.js"
 import { validatePartialTodo, validateTodo } from "../../schemas/zod/todos/todo.js"
 
 export class TodoController { 
@@ -52,5 +53,23 @@ export class TodoController {
     if (!response.ok) return res.status(404).json(response)
 
     return res.status(200).json(response)
-   }
+  }
+  
+  deleteAllCompleted = async (req, res) => {
+    const { deleteAllCompleted } = req.query
+
+    if (deleteAllCompleted === "true") {
+      const response = await this.todoModel.deleteAllCompleted()
+  
+      if (!response.ok) return res.status(404).json(response)
+  
+      return res.status(200).json(response)
+    }
+
+    return res.status(404).json({
+      ok: false,
+      message: TODOS_ERRORS.ERR_INVALID_QUERY,
+      response: null
+    })
+  }
 }

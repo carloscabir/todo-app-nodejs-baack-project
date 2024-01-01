@@ -14,5 +14,7 @@ export const createTodosRouter = ({ todoModel }) => {
   
   todosRouter.delete("/:id", todosController.deleteById)
 
+  todosRouter.delete("/", todosController.deleteAllCompleted)
+
   return todosRouter
  }
